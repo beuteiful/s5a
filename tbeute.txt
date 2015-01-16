@@ -1,0 +1,190 @@
+/* Thomas Beute - Coding Exercise */
+
+/****** Part 1 ******/
+<?php
+class ProductTest extends PHPUnit_Framework_TestCase {
+	
+	/* test product brandname exists
+	 * @uses Product::getBrandName()
+	 */
+	public function testProductBrandName() {
+		$brandname = "Saks Fifth Avenue";
+		$brandname2 = "Cole Haan";
+		
+		$product = new Product($brandname);
+		$product2 = new Product($brandname2);
+		
+		$this->assertEquals($brandname2, $product2->getBrandName());
+		$this->assertEquals($brandname, $product->getBrandName());
+	}
+	
+	/* test product brandname null
+	 * @uses Product::getBrandName()
+	 */
+	public function testProductBrandNameNull() {
+		$product = new Product(NULL);
+		
+		$this->assertInstanceOf('IllegalArgumentException', new Exception);
+	}
+}
+?>
+
+// Assignment 1 in Java (w/ JUnit)
+package com.s5a.interview;
+
+import org.junit.*;
+import static org.junit.Assert.* ;
+
+public class ProductTest {
+	/* test product brandname exists
+	 * @uses Product::getBrandName()
+	 */
+	@Test
+	public function testProductBrandName() {
+		String brandname = "Saks Fifth Avenue";
+		String brandname2 = "Cole Haan";
+		
+		Product test1 = new Product(brandname);
+		Product test2 = new Product(brandname2);
+		
+		assertEquals(brandname2, test1.getBrandName());
+		assertEquals(brandname, test2.getBrandName());
+	}
+	
+	/* test product brandname null
+	 * @uses Product::getBrandName()
+	 */
+	@Test(expected = IllegalArgumentException.class)
+	public function testProductBrandNameNull() {
+		String brandname = new Product(NULL);
+	}
+}
+
+
+/****** Part 2 ******/
+/* Service class: */
+package com.sample.dao;
+
+import java.util.List;
+import java.util.ArrayList;
+
+public class UserService implements UserDao {
+	public static List<String> userNameList = new ArrayList<String>();
+	
+	public List<String> show() {
+		return userNameList;
+	}
+	
+	public boolean add(String username) {
+		if (username != null && !username.isEmpty()) {
+			userNameList.add(username);
+			return true;	
+		}
+		return false;
+	}
+}
+
+/* Unit Tests */
+package com.sample.dao;
+import org.junit.*;
+import static org.junit.Assert.* ;
+
+public class TestCases {
+	/* test add function
+	* @uses UserService::add()
+	*/
+	@Test
+	public void testAdd() {
+		UserDaoImpl test = new UserDaoImpl();
+		
+		assertTrue(test.add("Sample"));
+	}
+	
+	/* test show function - populated
+	* @uses UserService::show()
+	*/
+	@Test
+	public void testShow() {
+		UserDaoImpl test = new UserDaoImpl();
+		List<String> expected = Array.asList("test", "test2"); // two items in list
+		
+		assertTrue(test.add("test"));
+		assertTrue(test.add("test2"));
+		
+		assertThat(test.show(), is(expected));
+	}
+	
+	/* test show function - empty
+	* @uses UserService::show()
+	*/
+	@Test
+	public void testShowEmpty() {
+		UserDaoImpl test = new UserDaoImpl();
+		List<String> expected = new ArrayList<String>(); // empty list
+		
+		assertThat(test.show(), is(expected));
+	}
+}
+
+/****** Part 3 ******/
+/* Original code (line numbers added): */
+1 package com.s5a.interview;
+2 
+3 public class ProductController {
+4 
+5 	Product product = ServiceProduct.add("Saks-brand-name");
+6 
+7 	private String showProduct() {
+8 		product.getBrandName()
+9 	}
+10 
+11 	public boolean addProduct(String brandName) {
+12 		product = serviceProduct.add(brandName);
+13 
+14 		return true;
+15 	}
+16 
+17 	public static void formatedBrandName() {
+18 		System.out.println("Current product: " + product.getBrandName)
+19 	}
+20 
+21 }
+/* Comments: */
+/* Controllers should not have static objects in them (see line 5). Instead they should be passed to the controller.
+ * - (Line 5) ProductService.add does not return a Product, but a boolean. Call new Product("Saks-brand-name") instead.
+ * - (Line 5) Don't name an object the same as its type.
+ * - (Line 7) Function doesn't need to be private. It's part of the controller. Unless it specifically is only usd by the controller make it public.
+ * - (Line 8) Missing semicolon
+ * - (Line 12) Return the call to ProductService.add. Service class will do validation.
+ * - (Line 12) Service should be the suffix of the class 'serviceProduct', not the prefix and in upper camel case.
+ * - (Line 18) Missing parenthesis for function getBrandName().
+ * - (Line 18) Missing semicolon
+
+
+/* Refactored code: */
+package com.s5a.interview;
+
+public class ProductController {
+
+	private Product my_product;
+	
+	public ProductController(Product prod) {
+		if (prod)
+			this.my_product = prod;
+		else
+			throw new IllegalArgumentException();
+	}
+
+	public String showProduct() {
+		my_product.getBrandName();
+	}
+
+	public boolean addProduct(String brandName) {
+		return ProductService.add(brandName);
+	}
+
+	public static void formatedBrandName() {
+		System.out.println("Current product: " + my_product.showProduct());
+	}
+
+}

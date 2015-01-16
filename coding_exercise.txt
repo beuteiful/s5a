@@ -1,0 +1,83 @@
+#Coding Exercise
+##Abstract
+
+The exercise is broken in 3 parts, as described below. When you are done, follow these steps to delivery your answers.
+
+* Create a new repository in Github, and upload your entire project, with the code you wrote, into Github
+* Send us the URL to the repository
+* Note, we should be able to clone your repo and compile all code in the project you created.
+
+##Exercises
+
+1) Write Unit tests, using any test framework, for the Java class below
+```Java
+
+package com.s5a.interview;
+
+public class Product {
+
+	private String brandName;
+
+	public Product(String brandName) {
+		this.brandName = brandName;
+	}
+
+	public String getBrandName() {
+		return brandName;
+	}
+
+}
+
+```
+
+2) Write one Service class that provides integration to the DAO layer UserDAO class, according to the **resources** section at very bottom of this page. Write unit tests that you think are needed to make sure the Service class is bug free
+
+3) Perform a code review and write your recommendations to the code below.
+Note, there are lots of missing parts and we expect you call out them. +1 (as bonus) if you refactor the code, in a new class, and make the compilation passes.
+
+```java
+
+package com.s5a.interview;
+
+public class ProductController {
+
+	Product product = ServiceProduct.add("Saks-brand-name");
+
+	private String showProduct() {
+		product.getBrandName()
+	}
+
+	public boolean addProduct(String brandName) {
+		product = serviceProduct.add(brandName);
+
+		return true;
+	}
+
+	public static void formatedBrandName() {
+		System.out.println("Current product: " + product.getBrandName)
+	}
+
+}
+
+```
+
+Look at **Resources** section below for references that you may need to accomplish the exercises.
+
+##Resources
+
+###Learn Git
+* [Try it online](http://github.io)
+* [Github learning](http://training.github.com/resources/videos/)
+
+###In memory cache layer
+
+Given a developer created the DAO layer below for you, feel free to grab the code and integrate in your project.
+
+  * UserDao - https://gist.github.com/sirmes/36fb8390acaf66366a51
+   * User DAO interfaces
+  * UserDaoImpl - https://gist.github.com/sirmes/75ca8190df6e5ca98409
+   * User DAO implementations
+  * UserCache - https://gist.github.com/sirmes/68fac3863a54aefa1088
+   * User data in-memory cache
+  * UserDaoImplTest - https://gist.github.com/sirmes/ab5fe6d818bef15cde09
+   * User DAO Unit tests sample
