@@ -1,6 +1,7 @@
 /* Thomas Beute - Coding Exercise */
 
 /****** Part 1 ******/
+/* I first did this in PHP because the exercise stated "any test framework", so let's assume we're interfacing with PHP... */
 <?php
 class ProductTest extends PHPUnit_Framework_TestCase {
 	
