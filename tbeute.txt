@@ -159,6 +159,8 @@ public class TestCases {
  * - (Line 12) Service should be the suffix of the class 'serviceProduct', not the prefix and in upper camel case.
  * - (Line 18) Missing parenthesis for function getBrandName().
  * - (Line 18) Missing semicolon
+ * Also add inline documentation to help other developers understand what the code is supposed to do.
+ */
 
 
 /* Refactored code: */
